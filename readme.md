@@ -42,6 +42,13 @@ Delete all generated files:
 
     npm run clean
 
+## Other
+
+By default, both `test` and `start` fail if linting doesn't pass. To skip that
+use the `nofail` environment variable like this:
+
+    nofail=1 npm test
+
 ## License
 
 MIT

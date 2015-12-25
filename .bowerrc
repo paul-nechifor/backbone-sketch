@@ -1,3 +1,4 @@
 {
-  "directory" : "build/bower"
+  "directory" : "build/bower",
+  "interactive": false
 }

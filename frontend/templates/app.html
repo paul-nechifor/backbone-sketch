@@ -7,16 +7,16 @@
         <span class='icon-bar'></span>
         <span class='icon-bar'></span>
       </button>
-      <a class='navbar-brand' href='/'>Backbone Sketch</a>
+      <a class='navbar-brand' href='/'><%- menu.brand.text %></a>
     </div>
 
     <div class='collapse navbar-collapse' id='bs-example-navbar-collapse-1'>
       <ul class='nav navbar-nav'>
-        <li><a href='/other'>Other</a></li>
-        <li><a href='/about'>About</a></li>
+        <% for (var i = 0, len = menu.topLinks.length; i < len; i++) { %>
+          <li><a href='<%- menu.topLinks[i].url %>'><%- menu.topLinks[i].text %></a></li>
+        <% } %>
       </ul>
     </div>
   </div>
 </nav>
-<div id='app'></div>
-<script src='bower/bootstrap/dist/js/bootstrap.min.js'></script>
+<div class='content'></div>

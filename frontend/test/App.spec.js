@@ -1,22 +1,23 @@
 import $ from 'jquery';
-import App from '../src/App';
+import startApp from '../src/startApp';
 import Backbone from 'backbone';
 
 describe('App', () => {
     function initApp(cb) {
-        const app = new App().init();
-        setTimeout(() => {
-            if (window.location.pathname === '/context.html') {
-                Backbone.history.navigate('/', {trigger: true});
-            }
-            cb(app);
-        }, 0);
+        startApp(app => {
+            setTimeout(() => {
+                if (window.location.pathname === '/context.html') {
+                    Backbone.history.navigate('/', {trigger: true});
+                }
+                cb(app);
+            }, 0);
+        });
     }
 
     describe('init', () => {
         it('should show the homepage by default', cb => {
             initApp(app => {
-                app.appDiv.text().trim().should.equal('Homepage.');
+                app.content.text().trim().should.equal('Homepage');
                 cb();
             });
         });
@@ -26,7 +27,7 @@ describe('App', () => {
         it('should be able to navigate to about page', cb => {
             initApp(app => {
                 app.navigate('/about');
-                app.appDiv.text().trim().should.equal('About page.');
+                app.content.text().trim().should.equal('About page');
                 window.location.pathname.should.equal('/about');
                 cb();
             });

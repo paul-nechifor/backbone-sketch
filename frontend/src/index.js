@@ -1,6 +1,3 @@
-import App from './App';
-import $ from 'jquery';
+import startApp from './startApp';
 
-$(() => {
-    (new App()).init();
-});
+startApp();
