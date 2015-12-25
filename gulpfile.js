@@ -1,0 +1,34 @@
+var eslint = require('gulp-eslint');
+var fs = require('fs');
+var gulp = require('gulp');
+var karma = require('karma');
+var templateBuilder = require('underscore-template-builder');
+var webpackStream = require('webpack-stream');
+
+gulp.task('default', ['templates', 'webpack']);
+
+gulp.task('templates', function (cb) {
+    var inDir = __dirname + '/frontend/templates';
+    var outFile = __dirname + '/build/templates.js'
+    templateBuilder.saveModule(inDir, outFile, cb);
+});
+
+gulp.task('webpack', function () {
+    return gulp.src('frontend/src')
+    .pipe(webpackStream(require('./webpack.config')))
+    .pipe(gulp.dest('build/'));
+});
+
+gulp.task('test', ['lint'], function (done) {
+    new karma.Server({
+        configFile: __dirname + '/karma.conf.js',
+        singleRun: true
+    }, done).start();
+});
+
+gulp.task('lint', function () {
+    return gulp.src(['frontend/src/**', 'frontend/test/**'])
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
+});

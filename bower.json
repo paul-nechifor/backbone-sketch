@@ -1,0 +1,11 @@
+{
+  "name": "backbone-sketch",
+  "description": "An example frontend JS project integrating newer technologies.",
+  "authors": [
+    "Paul Nechifor <paul@nechifor.net> (http://nechifor.net/)"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.6"
+  },
+  "license": "MIT"
+}
