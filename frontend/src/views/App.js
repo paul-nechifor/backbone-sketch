@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import Backbone from 'backbone';
 import Router from '../Router';
+import ActivatableLinkSet from '../utils/ActivatableLinkSet';
 import templates from '../../../build/templates';
 
 export default Backbone.View.extend({
@@ -9,6 +10,7 @@ export default Backbone.View.extend({
         this.templates = templates;
         this.content = null;
         this.currentView = null;
+        this.activatableLinkSet = new ActivatableLinkSet();
     },
 
     start() {
@@ -19,6 +21,7 @@ export default Backbone.View.extend({
         const app = $('#app');
         app.html(this.templates.app(this.model));
         this.content = app.find('.content');
+        this.activatableLinkSet.load(app);
         if (!Backbone.History.started) {
             Backbone.history.start({pushState: true, root: '/'});
         }
@@ -28,11 +31,11 @@ export default Backbone.View.extend({
     hijackLinks() {
         const that = this;
 
-        $(document).on('click', 'a[href]', function (e) {
+        $(document).on('click', 'a[href]', function (ev) {
             const a = $(this);
             const href = a.attr('href');
             if (href[0] === '/') {
-                e.preventDefault();
+                ev.preventDefault();
                 that.navigate(href);
             }
         });
@@ -44,6 +47,7 @@ export default Backbone.View.extend({
         }
         this.currentView = new ViewClass({app: this, data});
         this.currentView.render();
+        this.activatableLinkSet.lookUp(window.location.pathname);
     },
 
     navigate(href) {

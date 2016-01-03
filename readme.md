@@ -18,7 +18,8 @@ This is an example frontend JavaScript project that integrates the following:
 
 Left to integrate:
 
-   * sinon: (not done)
+   * sinon
+   * stylus
 
 ## Usage
 
