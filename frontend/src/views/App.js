@@ -16,7 +16,7 @@ export default Backbone.View.extend({
     start() {
         $('body').html(`
             <div id="app"></div>
-            <script src='/bower/bootstrap/dist/js/bootstrap.min.js'></script>
+            <script src='/bower/bootswatch-dist/js/bootstrap.min.js'></script>
         `);
         const app = $('#app');
         app.html(this.templates.app(this.model));

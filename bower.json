@@ -5,7 +5,7 @@
     "Paul Nechifor <paul@nechifor.net> (http://nechifor.net/)"
   ],
   "dependencies": {
-    "bootstrap": "~3.3.6"
+    "bootswatch-dist": "3.3.6-lumen"
   },
   "license": "MIT"
 }
