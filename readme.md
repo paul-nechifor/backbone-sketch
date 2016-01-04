@@ -23,7 +23,9 @@ Left to integrate:
 
 ## Usage
 
-Install the requirements:
+You can install the requirements with the following command. Note that you will
+need more than 1 GiB of RAM to compile/install everything. This will also
+install the bower requirements.
 
     npm install
 
