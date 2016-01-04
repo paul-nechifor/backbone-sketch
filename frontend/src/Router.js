@@ -9,6 +9,9 @@ export default Backbone.Router.extend({
         about() {
             this.app.replaceView(views.AboutPage);
         },
+        ['sign-up-in']() {
+            this.app.replaceView(views.SignUpInPage);
+        },
         ['*other']() {
             this.app.replaceView(views.NotFoundPage, arguments);
         },

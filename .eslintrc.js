@@ -217,6 +217,9 @@ module.exports = {
         commonjs: true,
         mocha: true,
     },
+    globals: {
+        sinon: true,
+    },
     extends: 'eslint:recommended',
     parser: 'babel-eslint',
 };

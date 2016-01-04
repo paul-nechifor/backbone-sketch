@@ -2,7 +2,8 @@ import $ from 'jquery';
 import Backbone from 'backbone';
 import Router from '../Router';
 import ActivatableLinkSet from '../utils/ActivatableLinkSet';
-import templates from '../../../build/templates';
+import templates from '../templates';
+import User from '../models/User';
 
 export default Backbone.View.extend({
     initialize() {
@@ -11,6 +12,7 @@ export default Backbone.View.extend({
         this.content = null;
         this.currentView = null;
         this.activatableLinkSet = new ActivatableLinkSet();
+        this.user = new User();
     },
 
     start() {
@@ -45,7 +47,10 @@ export default Backbone.View.extend({
         if (this.currentView) {
             this.currentView.remove();
         }
-        this.currentView = new ViewClass({app: this, data});
+        this.content.empty();
+        const el = $('<div/>');
+        this.content.append(el);
+        this.currentView = new ViewClass({app: this, el: el.get(0), data});
         this.currentView.render();
         this.activatableLinkSet.lookUp(window.location.pathname);
     },

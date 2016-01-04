@@ -1,6 +1,6 @@
 module.exports = function (config) {
     config.set({
-        frameworks: ['mocha', 'chai', 'sinon'],
+        frameworks: ['mocha', 'sinon-chai'],
         reporters: ['mocha', 'coverage'],
         browsers: ['PhantomJS'],
 

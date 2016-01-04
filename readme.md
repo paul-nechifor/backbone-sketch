@@ -13,12 +13,12 @@ This is an example frontend JavaScript project that integrates the following:
    * karma: runs the Mocha tests inside a browser
    * mocha: the test framework
    * phantomjs: the browser used for unit tests
+   * sinon: for its test doubles
    * uglify: for minifying the bundle
    * webpack: bundles and transforms static assets
 
 Left to integrate:
 
-   * sinon
    * stylus
 
 ## Usage
