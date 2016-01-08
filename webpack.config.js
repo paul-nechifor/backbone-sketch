@@ -42,13 +42,20 @@ var config = {
     },
     devtool: 'source-map',
     module: {
-        loaders: [babelLoader],
+        loaders: [
+            babelLoader,
+            {test: /\.jade/, loader: 'jade-ejs-loader?variable=d'},
+        ],
         postLoaders: [],
     },
     resolve: {
         modulesDirectories: ['', 'frontend', 'node_modules'],
     },
-    plugins: [],
+    plugins: [
+        new webpack.ProvidePlugin({
+            _: 'underscore',
+        }),
+    ],
     alterConfig: alterConfig,
 };
 
