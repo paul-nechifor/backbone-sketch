@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import Backbone from 'backbone';
-import templates from '../../templates';
-import * as api from '../../utils/api';
+import templates from '../templates';
+import * as api from '../utils/api';
 
 export default Backbone.View.extend({
     events: {

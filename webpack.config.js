@@ -35,7 +35,7 @@ var alterConfig = {
 };
 
 var config = {
-    entry: './frontend/src',
+    entry: './frontend',
     output: {
         path: __dirname + '/build',
         filename: 'bundle.js',
@@ -46,7 +46,7 @@ var config = {
         postLoaders: [],
     },
     resolve: {
-        modulesDirectories: ['', 'frontend/src', 'node_modules'],
+        modulesDirectories: ['', 'frontend', 'node_modules'],
     },
     plugins: [],
     alterConfig: alterConfig,
@@ -56,6 +56,7 @@ if (!debug) {
     config.plugins.push(new webpack.optimize.UglifyJsPlugin({
         minimize: true,
         compress: {warnings: false},
+        comments: false,
     }));
 }
 

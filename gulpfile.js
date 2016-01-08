@@ -19,13 +19,13 @@ gulp.task('test', ['templates', 'lint'], function (done) {
 });
 
 gulp.task('templates', function (cb) {
-    var inDir = __dirname + '/frontend/templates';
+    var inDir = __dirname + '/frontend/templatesdir';
     var outFile = __dirname + '/build/templates.js'
     templateBuilder.saveModule(inDir, outFile, cb);
 });
 
 gulp.task('lint', function () {
-    return gulp.src(['frontend/src/**', 'frontend/test/**'])
+    return gulp.src(['frontend/**/*.js'])
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());

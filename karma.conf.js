@@ -6,7 +6,7 @@ module.exports = function (config) {
 
         basePath: '',
         files: [
-            'frontend/test/test.js',
+            'frontend/test.js',
             {
                 pattern: './build/**/*',
                 included: false,
@@ -17,7 +17,7 @@ module.exports = function (config) {
         ],
 
         preprocessors: {
-            'frontend/test/test.js': ['webpack'],
+            'frontend/test.js': ['webpack'],
         },
         webpack: require('./webpack.config.js').alterConfig.getTestingConfig(),
         webpackServer: {noInfo: true},

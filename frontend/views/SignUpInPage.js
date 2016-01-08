@@ -1,5 +1,5 @@
 import AbstractPage from './AbstractPage';
-import SignInPane from './panes/SignInPane';
+import SignInPane from '../panes/SignInPane';
 
 export default AbstractPage.extend({
     render() {

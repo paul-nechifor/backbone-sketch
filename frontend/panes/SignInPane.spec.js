@@ -1,6 +1,6 @@
 import $ from 'jquery';
-import SignInPane from '../../../src/views/panes/SignInPane';
-import * as api from '../../../src/utils/api';
+import SignInPane from './SignInPane';
+import * as api from '../utils/api';
 
 describe('SignInPane', () => {
     function init() {
