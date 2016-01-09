@@ -17,6 +17,14 @@ gulp.task('test', ['lint'], function (done) {
     }, done).start();
 });
 
+gulp.task('wtest', ['lint'], function (done) {
+    new karma.Server({
+        configFile: __dirname + '/karma.conf.js',
+        singleRun: false,
+        autoWatch: true,
+    }, done).start();
+});
+
 gulp.task('lint', function () {
     return gulp.src(['frontend/**/*.js'])
     .pipe(eslint())

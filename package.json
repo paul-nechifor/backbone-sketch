@@ -6,6 +6,7 @@
   "scripts": {
     "postinstall": "bower install",
     "test": "gulp test",
+    "wtest": "gulp wtest",
     "build": "gulp",
     "start": "gulp && node backend/main.js",
     "clean": "rm -fr build node_modules"

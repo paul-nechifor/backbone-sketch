@@ -33,6 +33,10 @@ Lint, test and generate the coverage:
 
     npm test
 
+Continuously watch all files and rerun the tests:
+
+    npm run wtest
+
 Rebuild all the files and start the app.
 
     npm start
