@@ -9,8 +9,8 @@ export default AbstractPage.extend({
     render() {
         api.get('/api/people', {}, (err, data) => {
             if (err) {
-                return alert(err);
-            };
+                return alert(err); // eslint-disable-line no-alert
+            }
             this.$el.html(this.template(data));
         });
     },

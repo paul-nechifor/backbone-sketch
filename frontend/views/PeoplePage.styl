@@ -1,14 +1,15 @@
 .people-page
   image-size = 128px
   spacing = 20px
+  half-spacing = spacing / 2
   .card
     background #fff
     padding spacing
     min-height (2 * spacing + image-size)
   .row > div:first-child > .card
-    margin spacing spacing spacing 0
+    margin spacing half-spacing spacing 0
   .row > div:last-child > .card
-    margin spacing 0 spacing spacing
+    margin spacing 0 spacing half-spacing
   .image
     display block
     width image-size

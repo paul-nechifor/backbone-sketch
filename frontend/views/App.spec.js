@@ -16,7 +16,7 @@ describe('App', () => {
 
     it('should show the homepage by default', cb => {
         initApp(app => {
-            app.content.text().trim().should.equal('Homepage');
+            app.content.html().should.contain('<h1>Backbone Sketch</h1>');
             cb();
         });
     });
