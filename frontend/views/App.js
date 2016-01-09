@@ -3,12 +3,12 @@ import Backbone from 'backbone';
 import Menu from './Menu';
 import Router from '../Router';
 import User from '../models/User';
-import templates from '../templates';
 
 export default Backbone.View.extend({
+    template: require('./App.jade'),
+
     initialize() {
         this.router = new Router({app: this});
-        this.templates = templates;
         this.content = null;
         this.currentView = null;
         this.menu = null;
@@ -21,7 +21,7 @@ export default Backbone.View.extend({
             <script src='/bower/bootswatch-dist/js/bootstrap.min.js'></script>
         `);
         const app = $('#app');
-        app.html(this.templates.app(this.model));
+        app.html(this.template(this.model));
         this.menu = new Menu({
             app: this,
             el: app.find('.navbar-wrapper').get(0),

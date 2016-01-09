@@ -1,12 +1,13 @@
 import $ from 'jquery';
 import Backbone from 'backbone';
-import templates from '../templates';
 import * as api from '../utils/api';
 
 export default Backbone.View.extend({
     events: {
         'submit form': 'onSubmit',
     },
+
+    template: require('./SignInPane.jade'),
 
     initialize() {
         this.onSuccessCb = null;
@@ -15,7 +16,7 @@ export default Backbone.View.extend({
     },
 
     render() {
-        this.$el.html(templates.panes.signInPane());
+        this.$el.html(this.template());
         this.$form = this.$el.find('form');
         this.$username = this.$el.find('.username');
         this.$password = this.$el.find('.password');
