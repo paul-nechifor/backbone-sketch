@@ -1,15 +1,15 @@
 import Backbone from 'backbone';
 
-export default Backbone.View.extend({
+export default Backbone.Model.extend({
     initialize() {
-        // this.logOut();
+        this.logOut();
     },
 
-    // logIn(username) {
-    //     this.set({username: username, loggedIn: true});
-    // },
+    logIn(data) {
+        this.set({loggedIn: true, data});
+    },
 
-    // logOut() {
-    //     this.set({username: null, loggedIn: false});
-    // },
+    logOut() {
+        this.set({loggedIn: false, data: null});
+    },
 });

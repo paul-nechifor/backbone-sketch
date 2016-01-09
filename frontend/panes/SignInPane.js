@@ -69,6 +69,6 @@ export default Backbone.View.extend({
 
     remove() {
         this.onSuccessCb = null;
-        Backbone.View.prototype.call(this);
+        Backbone.View.prototype.remove.call(this);
     },
 });

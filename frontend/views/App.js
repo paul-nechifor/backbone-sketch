@@ -1,9 +1,9 @@
 import $ from 'jquery';
 import Backbone from 'backbone';
+import Menu from './Menu';
 import Router from '../Router';
-import ActivatableLinkSet from '../utils/ActivatableLinkSet';
-import templates from '../templates';
 import User from '../models/User';
+import templates from '../templates';
 
 export default Backbone.View.extend({
     initialize() {
@@ -11,7 +11,7 @@ export default Backbone.View.extend({
         this.templates = templates;
         this.content = null;
         this.currentView = null;
-        this.activatableLinkSet = new ActivatableLinkSet();
+        this.menu = null;
         this.user = new User();
     },
 
@@ -22,8 +22,11 @@ export default Backbone.View.extend({
         `);
         const app = $('#app');
         app.html(this.templates.app(this.model));
+        this.menu = new Menu({
+            app: this,
+            el: app.find('.navbar-wrapper').get(0),
+        }).render();
         this.content = app.find('.content');
-        this.activatableLinkSet.load(app);
         if (!Backbone.History.started) {
             Backbone.history.start({pushState: true, root: '/'});
         }
@@ -52,7 +55,7 @@ export default Backbone.View.extend({
         this.content.append(el);
         this.currentView = new ViewClass({app: this, el: el.get(0), data});
         this.currentView.render();
-        this.activatableLinkSet.lookUp(window.location.pathname);
+        this.menu.lookUp(window.location.pathname);
     },
 
     navigate(href) {
