@@ -1,0 +1,21 @@
+.people-page
+  image-size = 128px
+  spacing = 20px
+  .card
+    background #fff
+    padding spacing
+    min-height (2 * spacing + image-size)
+  .row > div:first-child > .card
+    margin spacing spacing spacing 0
+  .row > div:last-child > .card
+    margin spacing 0 spacing spacing
+  .image
+    display block
+    width image-size
+    height image-size
+    border-radius (image-size / 2)
+    float right
+  .name
+    text-transform uppercase
+    font-weight bold
+    font-size 20px

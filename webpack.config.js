@@ -45,6 +45,7 @@ var config = {
         loaders: [
             babelLoader,
             {test: /\.jade/, loader: 'jade-ejs-loader?variable=d'},
+            {test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader'},
         ],
         postLoaders: [],
     },
@@ -56,6 +57,10 @@ var config = {
             _: 'underscore',
         }),
     ],
+    stylus: {
+        use: [require('nib')()],
+        import: ['~nib/lib/nib/index.styl'],
+    },
     alterConfig: alterConfig,
 };
 

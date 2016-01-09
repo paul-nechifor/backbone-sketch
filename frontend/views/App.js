@@ -4,6 +4,8 @@ import Menu from './Menu';
 import Router from '../Router';
 import User from '../models/User';
 
+require('./App.styl');
+
 export default Backbone.View.extend({
     template: require('./App.jade'),
 

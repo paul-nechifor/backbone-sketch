@@ -1,6 +1,8 @@
 import $ from 'jquery';
 import AbstractPage from './AbstractPage';
 
+require('./Menu.styl');
+
 export default AbstractPage.extend({
     template: require('./Menu.jade'),
 

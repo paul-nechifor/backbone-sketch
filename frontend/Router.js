@@ -9,6 +9,9 @@ export default Backbone.Router.extend({
         about() {
             this.app.replaceView(views.AboutPage);
         },
+        people() {
+            this.app.replaceView(views.PeoplePage);
+        },
         logout() {
             this.app.user.logOut();
         },

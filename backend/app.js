@@ -2,6 +2,7 @@ var Strategy = require('passport-local').Strategy;
 var _ = require('lodash');
 var db = require('./db');
 var express = require('express');
+var faker = require('faker');
 var passport = require('passport');
 var path = require('path');
 
@@ -56,6 +57,20 @@ app.post('/api/auth/login', function (req, res, next) {
 app.get('/api/auth/logout', function (req, res) {
     req.logout();
     res.json({});
+});
+
+app.get('/api/people', function (req, res) {
+    var list = _.map(_.range(20), function (i) {
+        faker.seed(i + 1);
+        return {
+            name: faker.name.findName(),
+            email: faker.internet.email(),
+            address: faker.address.streetAddress(),
+            bio: faker.lorem.sentence(),
+            image: faker.image.avatar(),
+        };
+    });
+    res.json({res: list});
 });
 
 app.use('*', function (req, res) {
