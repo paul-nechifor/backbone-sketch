@@ -32,11 +32,11 @@ Rebuild all the files (in dev mode) and start the server:
 
 Lint, test and generate the coverage:
 
-    npm run test-once
+    npm test
 
 Continuously watch all files and rerun the tests (no coverage):
 
-    npm test
+    npm run watchtest
 
 Rebuild all the files in dev mode:
 

@@ -5,8 +5,8 @@
   "description": "An example frontend JS project integrating newer technologies.",
   "scripts": {
     "postinstall": "bower install",
-    "test": "gulp test",
-    "test-once": "single_run=1 gulp test",
+    "test": "single_run=1 gulp test",
+    "watchtest": "gulp test",
     "build": "gulp",
     "build-production": "uglify=1 gulp",
     "start": "gulp && node backend/main.js",

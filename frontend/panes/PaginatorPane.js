@@ -17,7 +17,7 @@ export default Backbone.View.extend({
             ev.preventDefault();
             ev.stopPropagation();
             const page = Number($(this).data('page'));
-            if (page >= 1) {
+            if (page >= 1 && that.onPageChange) {
                 that.onPageChange(Number($(this).data('page')));
             }
         });
