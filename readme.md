@@ -14,12 +14,9 @@ This is an example frontend JavaScript project that integrates the following:
    * mocha: the test framework
    * phantomjs: the browser used for unit tests
    * sinon: for its test doubles
+   * stylus: a CSS preprocessor
    * uglify: for minifying the bundle
    * webpack: bundles and transforms static assets
-
-Left to integrate:
-
-   * stylus
 
 ## Usage
 
@@ -29,21 +26,25 @@ install the bower requirements.
 
     npm install
 
-Lint, test and generate the coverage:
-
-    npm test
-
-Continuously watch all files and rerun the tests:
-
-    npm run wtest
-
-Rebuild all the files and start the app.
+Rebuild all the files (in dev mode) and start the server:
 
     npm start
 
-Rebuild all the files without starting the app.
+Lint, test and generate the coverage:
+
+    npm run test-once
+
+Continuously watch all files and rerun the tests (no coverage):
+
+    npm test
+
+Rebuild all the files in dev mode:
 
     npm run build
+
+Rebuild all the files in production mode:
+
+    npm run build-production
 
 Delete all generated files:
 
@@ -51,8 +52,8 @@ Delete all generated files:
 
 ## Other
 
-By default, both `test` and `start` fail if linting doesn't pass. To skip that
-use the `nofail` environment variable like this:
+By default, both `test` and `start` fail if linting doesn't pass. To ignore
+linting use the `nofail` environment variable like this:
 
     nofail=1 npm test
 

@@ -60,8 +60,9 @@ app.get('/api/auth/logout', function (req, res) {
 });
 
 app.get('/api/people', function (req, res) {
-    var list = _.map(_.range(20), function (i) {
-        faker.seed(i + 1);
+    var perPage = 20;
+    var list = _.map(_.range(perPage), function (i) {
+        faker.seed(perPage * req.query.index + i + 1);
         return {
             name: faker.name.findName(),
             email: faker.internet.email(),
@@ -70,7 +71,7 @@ app.get('/api/people', function (req, res) {
             image: faker.image.avatar(),
         };
     });
-    res.json({res: list});
+    res.json({res: {list: list, totalPages: 10}});
 });
 
 app.use('*', function (req, res) {

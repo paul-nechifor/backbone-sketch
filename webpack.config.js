@@ -1,23 +1,21 @@
 var path = require('path');
 var webpack = require('webpack');
 
-var debug = !!process.env.debug;
-
 var babelLoader = {
-    test: /.*/,
+    test: /.*\.js$/,
     exclude: /(node_modules|build\/bower)/,
     loader: 'babel',
-    query: {presets: ['es2015'], compact: !debug, cacheDirectory: true},
+    query: {presets: ['es2015'], compact: true, cacheDirectory: true},
 };
 
 var alterConfig = {
     ignoreSourceInBabel: function () {
-        babelLoader.exclude = /(node_modules|build\/bower|frontend\/src)/;
+        babelLoader.test = /.*\.spec\.js$/;
     },
     instrumentSource: function () {
         config.module.postLoaders = [{
-            test: /.*/,
-            include: path.resolve('./frontend/src'),
+            test: /.*\.js$/,
+            include: path.resolve('./frontend'),
             loader: 'babel-istanbul-instrumenter',
         }];
     },
@@ -27,8 +25,10 @@ var alterConfig = {
     },
 
     getTestingConfig: function () {
-        alterConfig.ignoreSourceInBabel();
-        alterConfig.instrumentSource();
+        if (process.env.single_run) {
+            alterConfig.ignoreSourceInBabel();
+            alterConfig.instrumentSource();
+        }
         alterConfig.noEntryAndOutput();
         return config;
     },
@@ -44,7 +44,7 @@ var config = {
     module: {
         loaders: [
             babelLoader,
-            {test: /\.jade/, loader: 'jade-ejs-loader?variable=d'},
+            {test: /\.jade$/, loader: 'jade-ejs-loader?variable=d'},
             {test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader'},
         ],
         postLoaders: [],
@@ -64,7 +64,7 @@ var config = {
     alterConfig: alterConfig,
 };
 
-if (!debug) {
+if (process.env.uglify) {
     config.plugins.push(new webpack.optimize.UglifyJsPlugin({
         minimize: true,
         compress: {warnings: false},

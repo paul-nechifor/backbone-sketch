@@ -6,8 +6,9 @@
   "scripts": {
     "postinstall": "bower install",
     "test": "gulp test",
-    "wtest": "gulp wtest",
+    "test-once": "single_run=1 gulp test",
     "build": "gulp",
+    "build-production": "uglify=1 gulp",
     "start": "gulp && node backend/main.js",
     "clean": "rm -fr build node_modules"
   },
@@ -16,6 +17,7 @@
     "connect-ensure-login": "^0.1.1",
     "cookie-parser": "^1.4.0",
     "express-session": "^1.12.1",
+    "jstransformer-verbatim": "^1.0.0",
     "morgan": "^1.6.1",
     "nib": "^1.1.0",
     "passport": "^0.3.2",

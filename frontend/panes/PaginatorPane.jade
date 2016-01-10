@@ -1,0 +1,7 @@
+ul.pagination
+  :verbatim
+    <% _.each(d, function (x) { %>
+      <li class='{{ x.classes }}'>
+        <a href='{{ x.url }}' data-page='{{ x.page }}'>{{ x.text }}</a>
+      </li>
+    <% });%>

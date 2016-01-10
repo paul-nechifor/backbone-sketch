@@ -10,7 +10,10 @@ export default Backbone.Router.extend({
             this.app.replaceView(views.AboutPage);
         },
         people() {
-            this.app.replaceView(views.PeoplePage);
+            this.app.navigate('/people/page/1');
+        },
+        ['people/page/:index'](index) {
+            this.app.replaceView(views.PeoplePage, {index});
         },
         logout() {
             this.app.user.logOut();

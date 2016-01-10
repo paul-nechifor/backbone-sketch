@@ -13,15 +13,8 @@ gulp.task('default', function () {
 gulp.task('test', ['lint'], function (done) {
     new karma.Server({
         configFile: __dirname + '/karma.conf.js',
-        singleRun: true
-    }, done).start();
-});
-
-gulp.task('wtest', ['lint'], function (done) {
-    new karma.Server({
-        configFile: __dirname + '/karma.conf.js',
-        singleRun: false,
         autoWatch: true,
+        singleRun: !!process.env.single_run,
     }, done).start();
 });
 
