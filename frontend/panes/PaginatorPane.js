@@ -1,6 +1,8 @@
 import Backbone from 'backbone';
 import $ from 'jquery';
 
+require('./PaginatorPane.styl');
+
 export default Backbone.View.extend({
     template: require('./PaginatorPane.jade'),
 

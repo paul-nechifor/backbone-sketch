@@ -63,4 +63,8 @@ export default Backbone.View.extend({
     navigate(href) {
         Backbone.history.navigate(href, {trigger: true});
     },
+
+    changeUrl(href) {
+        Backbone.history.navigate(href);
+    },
 });

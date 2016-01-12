@@ -1,5 +1,5 @@
 var Strategy = require('passport-local').Strategy;
-var _ = require('lodash');
+var _ = require('underscore');
 var db = require('./db');
 var express = require('express');
 var faker = require('faker');
@@ -61,8 +61,9 @@ app.get('/api/auth/logout', function (req, res) {
 
 app.get('/api/people', function (req, res) {
     var perPage = 20;
+    var index = Number(req.query.page) || 1;
     var list = _.map(_.range(perPage), function (i) {
-        faker.seed(perPage * req.query.index + i + 1);
+        faker.seed(perPage * (index - 1) + i + 1);
         return {
             name: faker.name.findName(),
             email: faker.internet.email(),
