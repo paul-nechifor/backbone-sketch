@@ -9,7 +9,7 @@ var babelLoader = {
     query: {presets: ['es2015'], compact: true, cacheDirectory: true},
 };
 
-var alterConfig = {
+var alter= {
     ignoreSourceInBabel: function () {
         babelLoader.test = /.*\.spec\.js$/;
     },
@@ -27,10 +27,11 @@ var alterConfig = {
 
     getTestingConfig: function () {
         if (process.env.single_run) {
-            alterConfig.ignoreSourceInBabel();
-            alterConfig.instrumentSource();
+            alter.ignoreSourceInBabel();
+            alter.instrumentSource();
         }
-        alterConfig.noEntryAndOutput();
+        alter.noEntryAndOutput();
+        config.devtool = 'inline-source-map';
         return config;
     },
 };
@@ -71,7 +72,7 @@ var config = {
         use: [require('nib')()],
         import: ['~nib/lib/nib/index.styl'],
     },
-    alterConfig: alterConfig,
+    alter: alter,
 };
 
 if (process.env.uglify) {

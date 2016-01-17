@@ -17,9 +17,9 @@ module.exports = function (config) {
         ],
 
         preprocessors: {
-            'frontend/test.js': ['webpack'],
+            'frontend/test.js': ['webpack', 'sourcemap'],
         },
-        webpack: require('./webpack.config.js').alterConfig.getTestingConfig(),
+        webpack: require('./webpack.config.js').alter.getTestingConfig(),
         webpackServer: {noInfo: true},
 
         coverageReporter: {type: 'html', dir: 'build/coverage/'},

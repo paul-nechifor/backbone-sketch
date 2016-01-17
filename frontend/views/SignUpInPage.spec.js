@@ -4,6 +4,6 @@ describe('SignUpInPage', () => {
     it('should focus the sign up username field on start', () => {
         const page = new SignUpInPage({el: document.getElementById('app')});
         page.render();
-        page.signInPane.$username.get(0).should.equal(document.activeElement);
+        page.signInPane.$username.is(':focus');
     });
 });
