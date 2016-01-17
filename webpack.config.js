@@ -1,3 +1,4 @@
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var path = require('path');
 var webpack = require('webpack');
 
@@ -44,8 +45,16 @@ var config = {
     module: {
         loaders: [
             babelLoader,
-            {test: /\.jade$/, loader: 'jade-ejs-loader?variable=d'},
-            {test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader'},
+            {
+                test: /\.jade$/,
+                loader: 'jade-ejs-loader?variable=d',
+            },
+            {
+                test: /\.styl$/,
+                loader: ExtractTextPlugin.extract(
+                    'style-loader', 'css-loader!stylus-loader'
+                ),
+            },
         ],
         postLoaders: [],
     },
@@ -56,6 +65,7 @@ var config = {
         new webpack.ProvidePlugin({
             _: 'underscore',
         }),
+        new ExtractTextPlugin('bundle.css', {allChunks: true}),
     ],
     stylus: {
         use: [require('nib')()],
