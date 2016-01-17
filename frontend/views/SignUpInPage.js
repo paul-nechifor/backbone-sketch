@@ -8,11 +8,10 @@ export default AbstractPage.extend({
     render() {
         this.$el.html(this.template());
         this.signInPane = new SignInPane({
-            el: this.$el.find('.sign-in-pane').get(0),
-        }).onSuccess(user => {
-            this.onSuccess(user);
-        }).render();
+            el: this.$('.sign-in-pane'),
+        }).once('success', this.onSuccess, this).render();
         this.signInPane.$username.focus();
+        return this;
     },
 
     onSuccess(user) {

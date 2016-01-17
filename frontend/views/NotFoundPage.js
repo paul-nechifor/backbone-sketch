@@ -5,5 +5,6 @@ export default AbstractPage.extend({
 
     render() {
         this.$el.html(this.template({url: this.data[0]}));
+        return this;
     },
 });

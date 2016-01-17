@@ -9,7 +9,6 @@ export default Backbone.View.extend({
     initialize(opts) {
         Backbone.View.prototype.initialize.apply(this, arguments);
         this.urlPrefix = opts.urlPrefix;
-        this.onPageChange = opts.onPageChange;
         this.hijackLinks();
     },
 
@@ -19,14 +18,15 @@ export default Backbone.View.extend({
             ev.preventDefault();
             ev.stopPropagation();
             const page = Number($(this).data('page'));
-            if (page >= 1 && that.onPageChange) {
-                that.onPageChange(Number($(this).data('page')));
+            if (page >= 1) {
+                that.trigger('pageChange', Number($(this).data('page')));
             }
         });
     },
 
     render(nPages, active) {
         this.$el.html(this.template(this.getPaginatorData(nPages, active)));
+        return this;
     },
 
     getPaginatorData(nPages, active) {

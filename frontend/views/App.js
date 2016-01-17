@@ -26,7 +26,7 @@ export default Backbone.View.extend({
         app.html(this.template(this.model));
         this.menu = new Menu({
             app: this,
-            el: app.find('.navbar-wrapper').get(0),
+            el: app.find('.navbar-wrapper'),
         }).render();
         this.content = app.find('.content');
         if (!Backbone.History.started) {

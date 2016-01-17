@@ -7,5 +7,6 @@ export default Backbone.View.extend({
 
     render(list) {
         this.$el.html(this.template(list));
+        return this;
     },
 });

@@ -21,7 +21,7 @@ export default AbstractPage.extend({
 
     load() {
         const that = this;
-        this.$el.find('a.activatable').map(function () {
+        this.$('a.activatable').map(function () {
             const jEl = $(this);
             that.links[jEl.attr('href')] = jEl;
         });

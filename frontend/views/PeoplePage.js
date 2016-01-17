@@ -11,26 +11,25 @@ export default AbstractPage.extend({
         this.$el.html(this.template());
         this.initPanes();
         this.getNewPage(this.data.index);
+        return this;
     },
 
     initPanes() {
         this.peopleListPane = new PeopleListPane({
-            el: this.$el.find('.people-list-container').get(0),
+            el: this.$('.people-list-container'),
         });
 
         const onPageChange = this.getNewPage.bind(this);
 
         this.paginatorPane1 = new PaginatorPane({
-            el: this.$el.find('.pager1').get(0),
+            el: this.$('.pager1'),
             urlPrefix: this.urlPrefix,
-            onPageChange,
-        });
+        }).on('pageChange', onPageChange);
 
         this.paginatorPane2 = new PaginatorPane({
-            el: this.$el.find('.pager2').get(0),
+            el: this.$('.pager2'),
             urlPrefix: this.urlPrefix,
-            onPageChange,
-        });
+        }).on('pageChange', onPageChange);
     },
 
     getNewPage(strPage) {

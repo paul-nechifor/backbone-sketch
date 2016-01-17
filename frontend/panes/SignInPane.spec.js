@@ -4,7 +4,7 @@ import * as api from '../utils/api';
 
 describe('SignInPane', () => {
     function init() {
-        return new SignInPane({el: $('<div/>').get(0)}).render();
+        return new SignInPane({el: $('<div/>')}).render();
     }
 
     it('should send data if I submit the view', () => {
@@ -52,7 +52,7 @@ describe('SignInPane', () => {
 
     it('should notify me if the auth succeeded', () => {
         const spy = sinon.spy();
-        const pane = init().onSuccess(spy);
+        const pane = init().once('success', spy);
         sinon.stub(api, 'post', (url, data, cb) => {
             cb(null, {user: 'Paul'});
         });

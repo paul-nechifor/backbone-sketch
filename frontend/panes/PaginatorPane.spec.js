@@ -26,13 +26,14 @@ describe('PaginatorPane', () => {
     });
 
     it('should call back when one of the links is clicked', () => {
+        const spy = sinon.spy();
         const pane = new PaginatorPane({
             el: document.getElementById('app'),
             urlPrefix: '/my/prefix',
-            onPageChange: sinon.spy(),
-        });
-        pane.render(5, 2);
-        pane.$el.find('a[href="/my/prefix/3"]').click();
-        pane.onPageChange.should.have.been.calledWith(3);
+        })
+        .once('pageChange', spy)
+        .render(5, 2);
+        pane.$('a[href="/my/prefix/3"]').click();
+        spy.should.have.been.calledWith(3);
     });
 });

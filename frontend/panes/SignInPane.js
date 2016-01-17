@@ -10,22 +10,16 @@ export default Backbone.View.extend({
     template: require('./SignInPane.jade'),
 
     initialize() {
-        this.onSuccessCb = null;
         this.alertTimeoutId = null;
         this.alertTimeout = 5000;
     },
 
     render() {
         this.$el.html(this.template());
-        this.$form = this.$el.find('form');
-        this.$username = this.$el.find('.username');
-        this.$password = this.$el.find('.password');
-        this.$alert = this.$el.find('.alert');
-        return this;
-    },
-
-    onSuccess(cb) {
-        this.onSuccessCb = cb;
+        this.$form = this.$('form');
+        this.$username = this.$('.username');
+        this.$password = this.$('.password');
+        this.$alert = this.$('.alert');
         return this;
     },
 
@@ -42,10 +36,7 @@ export default Backbone.View.extend({
             if (err) {
                 return this.showError(err.msg);
             }
-            if (this.onSuccessCb) {
-                this.onSuccessCb(res.user);
-                this.onSuccessCb = null;
-            }
+            this.trigger('success', res.user);
         });
     },
 
@@ -69,7 +60,6 @@ export default Backbone.View.extend({
     },
 
     remove() {
-        this.onSuccessCb = null;
         Backbone.View.prototype.remove.call(this);
     },
 });
