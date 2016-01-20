@@ -35,13 +35,13 @@ module.exports = {
         // Best Practices
         'accessor-pairs': [code],
         'block-scoped-var': [code],
-        'complexity': [code, 10],
+        complexity: [code, 10],
         'consistent-return': [code],
-        'curly': [code, 'all'],
+        curly: [code, 'all'],
         'default-case': [code],
         'dot-location': [code, 'property'],
         'dot-notation': [code, {allowKeywords: false}],
-        'eqeqeq': [code, 'smart'],
+        eqeqeq: [code, 'smart'],
         'guard-for-in': [0],
         'no-alert': [code],
         'no-caller': [code],
@@ -87,10 +87,10 @@ module.exports = {
         'no-void': [code],
         'no-warning-comments': [code],
         'no-with': [code],
-        'radix': [code],
+        radix: [code],
         'vars-on-top': [0],
         'wrap-iife': [code, 'inside'],
-        'yoda': [code, 'never'],
+        yoda: [code, 'never'],
 
         // Strict
         // 'strict': [],
@@ -106,7 +106,7 @@ module.exports = {
         'no-undef': [code],
         'no-undefined': [code],
         'no-unused-vars': [code],
-        'no-use-before-define': [code],
+        'no-use-before-define': [0],
 
         // Node.js and CommonJS
         'callback-return': [code],
@@ -123,8 +123,8 @@ module.exports = {
         'array-bracket-spacing': [code, 'never'],
         'block-spacing': [code, 'always'],
         'brace-style': [code, '1tbs'],
-        'camelcase': [code],
-        'comma-spacing': [code, {'before': false, 'after': true}],
+        camelcase: [code],
+        'comma-spacing': [code, {before: false, after: true}],
         'comma-style': [code, 'last'],
         'computed-property-spacing': [code, 'never'],
         'consistent-this': [code, 'that'],
@@ -133,7 +133,7 @@ module.exports = {
         'func-style': [code, 'declaration', {allowArrowFunctions: true}],
         'id-length': [0],
         'id-match': [0],
-        'indent': [code, 4],
+        indent: [code, 4],
         'jsx-quotes': [0],
         'key-spacing': [code, {beforeColon: false, afterColon: true}],
         'linebreak-style': [code, 'unix'],
@@ -169,13 +169,13 @@ module.exports = {
         'object-curly-spacing': [code, 'never'],
         'one-var': [code, 'never'],
         'operator-assignment': [code, 'always'],
-        'operator-linebreak': [code, 'before', {'overrides': {'?': 'after'}}],
+        'operator-linebreak': [code, 'before', {overrides: {'?': 'after'}}],
         'padded-blocks': [code, 'never'],
         'quote-props': [code, 'as-needed'],
-        'quotes': [code, 'single'],
+        quotes: [code, 'single'],
         'require-jsdoc': [0],
         'semi-spacing': [code, {before: false, after: true}],
-        'semi': [code, 'always'],
+        semi: [code, 'always'],
         'sort-vars': [0],
         'space-after-keywords': [code],
         'space-before-blocks': [code],
@@ -190,36 +190,47 @@ module.exports = {
         'space-unary-ops': [0],
         'spaced-comment': [code, 'always'],
         'wrap-regex': [0],
-
-        // ECMAScript 6
-        'arrow-body-style': [code, 'as-needed'],
-        'arrow-parens': [code, 'as-needed'],
-        'arrow-spacing': [code, {before: true, after: true}],
-        'constructor-super': [code],
-        'generator-star-spacing': [code, {before: true, after: false}],
-        'no-arrow-condition': [code],
-        'no-class-assign': [code],
-        'no-const-assign': [code],
-        'no-dupe-class-members': [code],
-        'no-this-before-super': [code],
-        'no-var': [code],
-        'object-shorthand': [code, 'always'],
-        'prefer-arrow-callback': [code],
-        'prefer-const': [code],
-        'prefer-reflect': [0],
-        'prefer-spread': [code],
-        'prefer-template': [code],
-        'require-yield': [code],
     },
     env: {
-        es6: true,
-        browser: true,
+        node: true,
         commonjs: true,
         mocha: true,
     },
     globals: {
         sinon: true,
     },
-    extends: 'eslint:recommended',
-    parser: 'babel-eslint',
+    getForEs2015: function () {
+        var options = JSON.parse(JSON.stringify(this));
+        options.parser = 'babel-eslint';
+        options.env.browser = true;
+        options.env.es6 = true;
+        delete options.env.node;
+        var rules = {
+            // ECMAScript 6
+            'arrow-body-style': [code, 'as-needed'],
+            'arrow-parens': [code, 'as-needed'],
+            'arrow-spacing': [code, {before: true, after: true}],
+            'constructor-super': [code],
+            'generator-star-spacing': [code, {before: true, after: false}],
+            'no-arrow-condition': [code],
+            'no-class-assign': [code],
+            'no-const-assign': [code],
+            'no-dupe-class-members': [code],
+            'no-this-before-super': [code],
+            'no-var': [code],
+            'object-shorthand': [code, 'always'],
+            'prefer-arrow-callback': [code],
+            'prefer-const': [code],
+            'prefer-reflect': [0],
+            'prefer-spread': [code],
+            'prefer-template': [code],
+            'require-yield': [code],
+        };
+
+        for (var key in rules) {
+            options.rules[key] = rules[key];
+        }
+
+        return options;
+    },
 };

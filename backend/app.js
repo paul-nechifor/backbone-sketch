@@ -13,7 +13,7 @@ app.set('view engine', 'jade');
 
 app.use(require('morgan')('combined'));
 app.use(require('cookie-parser')());
-app.use(require('body-parser').urlencoded({ extended: true }));
+app.use(require('body-parser').urlencoded({extended: true}));
 app.use(require('express-session')({
     secret: process.env.secret || 'secret',
     resave: false,
@@ -22,20 +22,28 @@ app.use(require('express-session')({
 
 passport.use(new Strategy(function (username, password, cb) {
     db.users.findByUsername(username, function (err, user) {
-        if (err) { return cb(err); }
-        if (!user) { return cb(null, false); }
-        if (user.password != password) { return cb(null, false); }
+        if (err) {
+            return cb(err);
+        }
+        if (!user) {
+            return cb(null, false);
+        }
+        if (user.password !== password) {
+            return cb(null, false);
+        }
         return cb(null, user);
     });
 }));
 
-passport.serializeUser(function(user, cb) {
+passport.serializeUser(function (user, cb) {
     cb(null, user.id);
 });
 
-passport.deserializeUser(function(id, cb) {
+passport.deserializeUser(function (id, cb) {
     db.users.findById(id, function (err, user) {
-        if (err) { return cb(err); }
+        if (err) {
+            return cb(err);
+        }
         cb(null, user);
     });
 });
@@ -43,15 +51,15 @@ passport.deserializeUser(function(id, cb) {
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(express.static(path.join(__dirname, '../build')));
+app.use(express['static'](path.join(__dirname, '../build')));
 
 app.post('/api/auth/login', function (req, res, next) {
-    passport.authenticate('local', function (err, user, info) {
-       if (err || !user) {
-           return res.json({err: {msg: 'Auth error.'}});
-       }
-       res.json({res: {user: _.omit(user, 'password')}});
-   })(req, res, next);
+    passport.authenticate('local', function (err, user) {
+        if (err || !user) {
+            return res.json({err: {msg: 'Auth error.'}});
+        }
+        res.json({res: {user: _.omit(user, 'password')}});
+    })(req, res, next);
 });
 
 app.get('/api/auth/logout', function (req, res) {
@@ -80,19 +88,19 @@ app.use('*', function (req, res) {
 });
 
 if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
+    app.use(function (err, req, res) {
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
-            error: err
+            error: err,
         });
     });
 } else {
-    app.use(function(err, req, res, next) {
+    app.use(function (err, req, res) {
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
-            error: {}
+            error: {},
         });
     });
 }

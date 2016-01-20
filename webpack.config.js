@@ -1,4 +1,4 @@
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var path = require('path');
 var webpack = require('webpack');
 
@@ -9,7 +9,7 @@ var babelLoader = {
     query: {presets: ['es2015'], compact: true, cacheDirectory: true},
 };
 
-var alter= {
+var alter = {
     ignoreSourceInBabel: function () {
         babelLoader.test = /.*\.spec\.js$/;
     },
@@ -21,8 +21,8 @@ var alter= {
         }];
     },
     noEntryAndOutput: function () {
-        delete config['entry'];
-        delete config['output'];
+        delete config.entry;
+        delete config.output;
     },
 
     getTestingConfig: function () {
@@ -39,7 +39,7 @@ var alter= {
 var config = {
     entry: './frontend',
     output: {
-        path: __dirname + '/build',
+        path: path.resolve(__dirname, 'build'),
         filename: 'bundle.js',
     },
     devtool: 'source-map',
@@ -72,6 +72,7 @@ var config = {
         use: [require('nib')()],
         import: ['~nib/lib/nib/index.styl'],
     },
+    stats: {children: false},
     alter: alter,
 };
 
