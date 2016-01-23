@@ -164,7 +164,7 @@ module.exports = {
     'no-spaced-func': [code],
     'no-ternary': [0],
     'no-trailing-spaces': [code],
-    'no-underscore-dangle': [code],
+    'no-underscore-dangle': [0],
     'no-unneeded-ternary': [code],
     'object-curly-spacing': [code, 'never'],
     'one-var': [code, 'never'],

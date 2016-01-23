@@ -1,0 +1,1 @@
+exports.people = require('./people');
