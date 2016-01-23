@@ -7,32 +7,30 @@ import User from '../models/User';
 require('./App.styl');
 
 export default Backbone.View.extend({
+  el: '#app',
+
   template: require('./App.jade'),
 
   initialize() {
     this.router = new Router({app: this});
-    this.content = null;
+    this.$content = null;
     this.currentView = null;
     this.menu = null;
     this.user = new User();
   },
 
-  start() {
-    $('body').html(`
-      <div id="app"></div>
-      <script src='/bower/bootswatch-dist/js/bootstrap.min.js'></script>
-    `);
-    const app = $('#app');
-    app.html(this.template(this.model));
+  render() {
+    this.$el.html(this.template(this.model));
     this.menu = new Menu({
       app: this,
-      el: app.find('.navbar-wrapper'),
+      el: this.$('.navbar-wrapper'),
     }).render();
-    this.content = app.find('.content');
+    this.$content = this.$('.content');
     if (!Backbone.History.started) {
       Backbone.history.start({pushState: true, root: '/'});
     }
     this.hijackLinks();
+    return this;
   },
 
   hijackLinks() {
@@ -52,9 +50,9 @@ export default Backbone.View.extend({
     if (this.currentView) {
       this.currentView.remove();
     }
-    this.content.empty();
+    this.$content.empty();
     const el = $('<div/>');
-    this.content.append(el);
+    this.$content.append(el);
     this.currentView = new ViewClass({app: this, el: el.get(0), data});
     this.currentView.render();
     this.menu.lookUp(window.location.pathname);

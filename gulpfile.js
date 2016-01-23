@@ -14,9 +14,9 @@ gulp.task('default', function () {
 
 gulp.task('test', ['lint'], function (done) {
   new karma.Server({
-  configFile: path.resolve(__dirname, 'karma.conf.js'),
-  autoWatch: true,
-  singleRun: !!process.env.single_run,
+    configFile: path.resolve(__dirname, 'karma.conf.js'),
+    autoWatch: true,
+    singleRun: !!process.env.single_run,
   }, done).start();
 });
 
@@ -30,7 +30,6 @@ gulp.task('lint:frontend', function () {
 });
 
 gulp.task('lint:backend', function () {
-  // return gulp.src(['backend/**/*.js', '*'])
   return gulp.src(['backend/**/*.js', '*.js'])
   .pipe(eslint(eslintOptions))
   .pipe(eslint.format())

@@ -1,3 +1,8 @@
-import startApp from './startApp';
+import $ from 'jquery';
+import App from './views/App';
 
-startApp();
+window.$ = window.jQuery = $; // This is needed by Bootstrap.
+
+$(() => {
+  new App().render();
+});

@@ -1,42 +1,36 @@
 import $ from 'jquery';
-import startApp from '../startApp';
+import App from './App';
 import Backbone from 'backbone';
 
 describe('App', () => {
-  function initApp(cb) {
-    startApp(app => {
-      setTimeout(() => {
-        if (window.location.pathname === '/context.html') {
-          Backbone.history.navigate('/', {trigger: true});
-        }
-        cb(app);
-      }, 0);
-    });
-  }
+  let app = null;
 
-  it('should show the homepage by default', cb => {
-    initApp(app => {
-      app.content.html().should.contain('<h1>Backbone Sketch</h1>');
-      cb();
-    });
+  beforeEach(() => {
+    $('body').html('<div id="app"></div>');
+    app = new App({el: $('#app')}).render();
+    if (window.location.pathname === '/context.html') {
+      Backbone.history.navigate('/', {trigger: true});
+    }
   });
 
-  it('should be able to navigate to about page', cb => {
-    initApp(app => {
-      app.navigate('/about');
-      app.content.text().trim().should.equal('About page');
-      window.location.pathname.should.equal('/about');
-      cb();
-    });
+  afterEach(() => {
+    app.remove();
   });
 
-  it('should prevent local links from reloading the page', cb => {
-    initApp(app => {
-      app.navigate('/about');
-      window.location.pathname.should.equal('/about');
-      $('a.navbar-brand').click();
-      window.location.pathname.should.equal('/');
-      cb();
-    });
+  it('should show the homepage by default', () => {
+    app.$content.html().should.contain('<h1>Backbone Sketch</h1>');
+  });
+
+  it('should be able to navigate to about page', () => {
+    app.navigate('/about');
+    app.$content.text().trim().should.equal('About page');
+    window.location.pathname.should.equal('/about');
+  });
+
+  it('should prevent local links from reloading the page', () => {
+    app.navigate('/about');
+    window.location.pathname.should.equal('/about');
+    $('a.navbar-brand').click();
+    window.location.pathname.should.equal('/');
   });
 });

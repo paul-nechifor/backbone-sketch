@@ -6,7 +6,8 @@ module.exports = function (config) {
 
     basePath: '',
     files: [
-      'frontend/test.js',
+      'frontend/test.entrypoint',
+      'build/bower/bootswatch-dist/js/bootstrap.min.js',
       {
         pattern: './build/**/*',
         included: false,
@@ -17,7 +18,7 @@ module.exports = function (config) {
     ],
 
     preprocessors: {
-      'frontend/test.js': ['webpack', 'sourcemap'],
+      'frontend/test.entrypoint': ['webpack', 'sourcemap'],
     },
     webpack: require('./webpack.config.js').alter.getTestingConfig(),
     webpackServer: {noInfo: true},
