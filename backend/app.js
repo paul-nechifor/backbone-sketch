@@ -15,37 +15,37 @@ app.use(require('morgan')('combined'));
 app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({extended: true}));
 app.use(require('express-session')({
-    secret: process.env.secret || 'secret',
-    resave: false,
-    saveUninitialized: false,
+  secret: process.env.secret || 'secret',
+  resave: false,
+  saveUninitialized: false,
 }));
 
 passport.use(new Strategy(function (username, password, cb) {
-    db.users.findByUsername(username, function (err, user) {
-        if (err) {
-            return cb(err);
-        }
-        if (!user) {
-            return cb(null, false);
-        }
-        if (user.password !== password) {
-            return cb(null, false);
-        }
-        return cb(null, user);
-    });
+  db.users.findByUsername(username, function (err, user) {
+    if (err) {
+      return cb(err);
+    }
+    if (!user) {
+      return cb(null, false);
+    }
+    if (user.password !== password) {
+      return cb(null, false);
+    }
+    return cb(null, user);
+  });
 }));
 
 passport.serializeUser(function (user, cb) {
-    cb(null, user.id);
+  cb(null, user.id);
 });
 
 passport.deserializeUser(function (id, cb) {
-    db.users.findById(id, function (err, user) {
-        if (err) {
-            return cb(err);
-        }
-        cb(null, user);
-    });
+  db.users.findById(id, function (err, user) {
+    if (err) {
+      return cb(err);
+    }
+    cb(null, user);
+  });
 });
 
 app.use(passport.initialize());
@@ -54,55 +54,55 @@ app.use(passport.session());
 app.use(express['static'](path.join(__dirname, '../build')));
 
 app.post('/api/auth/login', function (req, res, next) {
-    passport.authenticate('local', function (err, user) {
-        if (err || !user) {
-            return res.json({err: {msg: 'Auth error.'}});
-        }
-        res.json({res: {user: _.omit(user, 'password')}});
-    })(req, res, next);
+  passport.authenticate('local', function (err, user) {
+    if (err || !user) {
+      return res.json({err: {msg: 'Auth error.'}});
+    }
+    res.json({res: {user: _.omit(user, 'password')}});
+  })(req, res, next);
 });
 
 app.get('/api/auth/logout', function (req, res) {
-    req.logout();
-    res.json({});
+  req.logout();
+  res.json({});
 });
 
 app.get('/api/people', function (req, res) {
-    var perPage = 20;
-    var index = Number(req.query.page) || 1;
-    var list = _.map(_.range(perPage), function (i) {
-        faker.seed(perPage * (index - 1) + i + 1);
-        return {
-            name: faker.name.findName(),
-            email: faker.internet.email(),
-            address: faker.address.streetAddress(),
-            bio: faker.lorem.sentence(),
-            image: faker.image.avatar(),
-        };
-    });
-    res.json({res: {list: list, totalPages: 10}});
+  var perPage = 20;
+  var index = Number(req.query.page) || 1;
+  var list = _.map(_.range(perPage), function (i) {
+    faker.seed(perPage * (index - 1) + i + 1);
+    return {
+      name: faker.name.findName(),
+      email: faker.internet.email(),
+      address: faker.address.streetAddress(),
+      bio: faker.lorem.sentence(),
+      image: faker.image.avatar(),
+    };
+  });
+  res.json({res: {list: list, totalPages: 10}});
 });
 
 app.use('*', function (req, res) {
-    res.render('index');
+  res.render('index');
 });
 
 if (app.get('env') === 'development') {
-    app.use(function (err, req, res) {
-        res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: err,
-        });
+  app.use(function (err, req, res) {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: err,
     });
+  });
 } else {
-    app.use(function (err, req, res) {
-        res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: {},
-        });
+  app.use(function (err, req, res) {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: {},
     });
+  });
 }
 
 module.exports = app;

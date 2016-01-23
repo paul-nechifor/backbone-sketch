@@ -1,10 +1,10 @@
 import AbstractPage from './AbstractPage';
 
 export default AbstractPage.extend({
-    template: require('./HomePage.jade'),
+  template: require('./HomePage.jade'),
 
-    render() {
-        this.$el.html(this.template());
-        return this;
-    },
+  render() {
+    this.$el.html(this.template());
+    return this;
+  },
 });

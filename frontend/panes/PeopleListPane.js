@@ -3,10 +3,10 @@ import Backbone from 'backbone';
 require('./PeopleListPane.styl');
 
 export default Backbone.View.extend({
-    template: require('./PeopleListPane.jade'),
+  template: require('./PeopleListPane.jade'),
 
-    render(list) {
-        this.$el.html(this.template(list));
-        return this;
-    },
+  render(list) {
+    this.$el.html(this.template(list));
+    return this;
+  },
 });

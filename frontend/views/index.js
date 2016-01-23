@@ -5,9 +5,9 @@ import PeoplePage from './PeoplePage';
 import SignUpInPage from './SignUpInPage';
 
 export default {
-    AboutPage,
-    HomePage,
-    NotFoundPage,
-    PeoplePage,
-    SignUpInPage,
+  AboutPage,
+  HomePage,
+  NotFoundPage,
+  PeoplePage,
+  SignUpInPage,
 };
