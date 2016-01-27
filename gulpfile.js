@@ -29,6 +29,10 @@ gulp.task('test:backend', ['lint:backend'], function () {
   .pipe(mocha());
 });
 
+gulp.task('test:backend:watch', ['test:backend'], function () {
+  return gulp.watch('./backend/**/*js', ['test:backend']);
+});
+
 gulp.task('lint:frontend', function () {
   return lint(['frontend/**/*.js'], eslintOptions.getForEs2015());
 });

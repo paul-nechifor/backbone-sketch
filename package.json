@@ -6,7 +6,8 @@
   "scripts": {
     "postinstall": "bower install",
     "test": "single_run=1 gulp test",
-    "watchtest": "gulp test",
+    "testwf": "gulp test",
+    "testwb": "gulp test:backend:watch",
     "build": "gulp",
     "build-production": "uglify=1 gulp",
     "start": "gulp && node backend/main.js",

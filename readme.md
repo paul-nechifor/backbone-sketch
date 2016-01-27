@@ -34,9 +34,13 @@ Lint, test and generate the coverage:
 
     npm test
 
-Continuously watch all files and rerun the tests (no coverage):
+Continuously watch all frontend files and rerun the tests (no coverage):
 
-    npm run watchtest
+    npm run testwf
+
+Same thing for the backend:
+
+    npm run testwb
 
 Rebuild all the files in dev mode:
 
