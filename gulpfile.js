@@ -10,7 +10,7 @@ var eslintOptions = require('./.eslintrc.js');
 gulp.task('default', function () {
   return gulp.src('frontend/src')
   .pipe(webpackStream(require('./webpack.config')))
-  .pipe(gulp.dest('build/'));
+  .pipe(gulp.dest('build/bundle/'));
 });
 
 gulp.task('test', ['test:frontend', 'test:backend']);
