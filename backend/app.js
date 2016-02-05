@@ -4,9 +4,9 @@ var db = require('./db');
 var express = require('express');
 var passport = require('passport');
 var path = require('path');
+var routes = require('./routes');
 
 var app = express();
-var routes = require('./routes');
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -51,7 +51,7 @@ passport.deserializeUser(function (id, cb) {
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(express['static'](path.join(__dirname, '../build')));
+app.use(express.static(path.join(__dirname, '../build')));
 
 app.post('/api/auth/login', function (req, res, next) {
   passport.authenticate('local', function (err, user) {
@@ -69,26 +69,16 @@ app.get('/api/auth/logout', function (req, res) {
 
 app.get('/api/people', routes.people.index);
 
-app.use('*', function (req, res) {
+app.get('*', function (req, res) {
   res.render('index');
 });
 
-if (app.get('env') === 'development') {
-  app.use(function (err, req, res) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err,
-    });
+app.use(function (err, req, res) {
+  res.status(err.status || 500);
+  res.render('error', {
+    message: err.message,
+    error: err,
   });
-} else {
-  app.use(function (err, req, res) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: {},
-    });
-  });
-}
+});
 
 module.exports = app;

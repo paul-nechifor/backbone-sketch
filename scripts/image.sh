@@ -45,6 +45,20 @@ subcommand_stop() {
     stop_image 1
 }
 
+subcommand_postgres() {
+    local args=(
+        -d
+        -p 5432:5432
+        -e POSTGRES_PASSWORD=password
+        -v /postgres-data:/var/lib/postgresql/data
+    )
+    docker run "${args[@]}" postgres:9.5
+    sleep 20
+    PGPASSWORD=password psql -h localhost -p 5432 -U postgres -c '
+        create database db
+    '
+}
+
 start_image() {
     local image="$1"
     local container_index="$2"

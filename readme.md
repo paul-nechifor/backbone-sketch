@@ -61,6 +61,12 @@ linting use the `nofail` environment variable like this:
 
     nofail=1 npm test
 
+## TODO
+
+* Add Selenium tests.
+* Add screenshot tests.
+* Add the Vagrantfile.
+
 ## License
 
 MIT

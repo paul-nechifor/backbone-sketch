@@ -2,18 +2,24 @@
 
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.."; pwd)"
 
+packages=(
+    nginx
+    postgresql-client
+)
+
 main() {
     if [[ $(id -u) != 0 ]]; then
-        echo 'You are not root'.
+        echo 'You are not root.'
         exit 1
     fi
     cd "$root"
+    mkdir /postgres-data
     install
     configure
 }
 
 install() {
-    apt-get install nginx
+    apt-get install "${packages[@]}"
 }
 
 configure() {

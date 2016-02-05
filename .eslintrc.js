@@ -40,7 +40,7 @@ module.exports = {
     curly: [code, 'all'],
     'default-case': [code],
     'dot-location': [code, 'property'],
-    'dot-notation': [code, {allowKeywords: false}],
+    'dot-notation': [code, {allowKeywords: true}],
     eqeqeq: [code, 'smart'],
     'guard-for-in': [0],
     'no-alert': [code],
@@ -122,7 +122,7 @@ module.exports = {
     // Stylistic Issues
     'array-bracket-spacing': [code, 'never'],
     'block-spacing': [code, 'always'],
-    'brace-style': [code, '1tbs'],
+    'brace-style': [code, '1tbs', {allowSingleLine: true}],
     camelcase: [code],
     'comma-spacing': [code, {before: false, after: true}],
     'comma-style': [code, 'last'],
