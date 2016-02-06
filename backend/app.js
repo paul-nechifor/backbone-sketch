@@ -1,6 +1,3 @@
-var Strategy = require('passport-local').Strategy;
-var _ = require('underscore');
-var db = require('./db');
 var express = require('express');
 var passport = require('passport');
 var path = require('path');
@@ -20,65 +17,20 @@ app.use(require('express-session')({
   saveUninitialized: false,
 }));
 
-passport.use(new Strategy(function (username, password, cb) {
-  db.users.findByUsername(username, function (err, user) {
-    if (err) {
-      return cb(err);
-    }
-    if (!user) {
-      return cb(null, false);
-    }
-    if (user.password !== password) {
-      return cb(null, false);
-    }
-    return cb(null, user);
-  });
-}));
-
-passport.serializeUser(function (user, cb) {
-  cb(null, user.id);
-});
-
-passport.deserializeUser(function (id, cb) {
-  db.users.findById(id, function (err, user) {
-    if (err) {
-      return cb(err);
-    }
-    cb(null, user);
-  });
-});
-
 app.use(passport.initialize());
 app.use(passport.session());
 
+passport.serializeUser(routes.passport.serializeUser);
+passport.deserializeUser(routes.passport.deserializeUser);
+passport.use(routes.passport.strategy);
+
 app.use(express.static(path.join(__dirname, '../build')));
 
-app.post('/api/auth/login', function (req, res, next) {
-  passport.authenticate('local', function (err, user) {
-    if (err || !user) {
-      return res.json({err: {msg: 'Auth error.'}});
-    }
-    res.json({res: {user: _.omit(user, 'password')}});
-  })(req, res, next);
-});
-
-app.get('/api/auth/logout', function (req, res) {
-  req.logout();
-  res.json({});
-});
-
+app.post('/api/auth/login', routes.auth.login);
+app.get('/api/auth/logout', routes.auth.logout);
 app.get('/api/people', routes.people.index);
+app.get('*', routes.home.index);
 
-app.get('*', function (req, res) {
-  res.render('index');
-});
-
-app.use(function (err, req, res) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: err,
-  });
-});
+app.use(routes.errors.debug);
 
 module.exports = app;
