@@ -11,11 +11,4 @@ db.init(connectionString, function (err) {
   if (err) { throw err; }
   process.stdout.write('Starting server on port ' + app.get('port') + '.\n');
   http.createServer(app).listen(app.get('port'));
-
-  db.tables.User.create({
-    username: 'janedoe',
-    passwordHash: 'hash',
-  }).then(function (jane) {
-    console.log(jane.get({plain: true}));
-  });
 });

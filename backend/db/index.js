@@ -1,7 +1,5 @@
 var Sequelize = require('sequelize');
 
-exports.users = require('./users');
-
 exports.seq = null;
 exports.tables = null;
 

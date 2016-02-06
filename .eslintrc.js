@@ -72,7 +72,7 @@ module.exports = {
     'no-new': [code],
     'no-octal-escape': [code],
     'no-octal': [code],
-    'no-param-reassign': [code],
+    'no-param-reassign': [0],
     'no-process-env': [0],
     'no-proto': [code],
     'no-redeclare': [code],

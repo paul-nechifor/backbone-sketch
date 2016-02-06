@@ -28,6 +28,7 @@ app.use(express.static(path.join(__dirname, '../build')));
 
 app.post('/api/auth/login', routes.auth.login);
 app.get('/api/auth/logout', routes.auth.logout);
+app.post('/api/auth/register', routes.auth.register);
 app.get('/api/people', routes.people.index);
 app.get('*', routes.home.index);
 

@@ -1,14 +1,19 @@
 import $ from 'jquery';
-import SignInPane from './SignInPane';
 import * as api from '../utils/api';
+import SignInPane from './SignInPane';
 
 describe('SignInPane', () => {
-  function init() {
-    return new SignInPane({el: $('<div/>')}).render();
-  }
+  let pane = null;
+
+  beforeEach(() => {
+    pane = new SignInPane({el: $('<div/>')}).render();
+  });
+
+  afterEach(() => {
+    pane.remove();
+  });
 
   it('should send data if I submit the view', () => {
-    const pane = init();
     pane.$username.val('uname');
     pane.$password.val('pword');
     pane.submitData = sinon.spy();
@@ -20,7 +25,6 @@ describe('SignInPane', () => {
   });
 
   it('should reset the form if an error is shown', () => {
-    const pane = init();
     pane.$username.val('x');
     pane.$password.val('y');
     pane.showError('some error text');
@@ -28,19 +32,14 @@ describe('SignInPane', () => {
     pane.$password.val().should.equal('');
   });
 
-  it('should be able to display errors', cb => {
-    const pane = init();
+  it('should be able to display errors', () => {
     const errorText = 'This is my error text.';
-    pane.alertTimeout = 0;
-    pane.showError(errorText, () => {
-      cb();
-    });
+    pane.showError(errorText);
     pane.$el.html().should.contain(errorText);
   });
 
   it('should show an error message if the auth failed', () => {
     const errorMessage = 'my errro message';
-    const pane = init();
     sinon.stub(api, 'post', (url, data, cb) => {
       cb({msg: errorMessage});
     });
@@ -52,7 +51,7 @@ describe('SignInPane', () => {
 
   it('should notify me if the auth succeeded', () => {
     const spy = sinon.spy();
-    const pane = init().once('success', spy);
+    pane.once('success', spy);
     sinon.stub(api, 'post', (url, data, cb) => {
       cb(null, {user: 'Paul'});
     });

@@ -6,19 +6,16 @@ exports.serializeUser = function (user, cb) {
 };
 
 exports.deserializeUser = function (id, cb) {
-  db.users.findById(id, function (err, user) {
-    if (err) {
-      return cb(err);
-    }
+  db.tables.User.findOne({where: {id: id}}).then(function (user) {
     cb(null, user);
-  });
+  }).catch(cb);
 };
 
-exports.strategy = new Strategy(function (username, password, cb) {
-  db.users.findByUsername(username, function (err, user) {
-    if (err) { return cb(err); }
-    if (!user) { return cb(null, false); }
-    if (user.password !== password) { return cb(null, false); }
-    return cb(null, user);
-  });
-});
+exports.checkUser = function (username, password, cb) {
+  db.tables.User.findOne({where: {username: username}}).then(function (user) {
+    if (user.passwordHash !== password) { return cb(null, false); }
+    cb(null, user);
+  }).catch(cb);
+};
+
+exports.strategy = new Strategy(exports.checkUser);

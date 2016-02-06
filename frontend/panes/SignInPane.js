@@ -1,25 +1,24 @@
-import $ from 'jquery';
-import Backbone from 'backbone';
 import * as api from '../utils/api';
+import AlertListPane from './AlertListPane';
+import Backbone from 'backbone';
 
 export default Backbone.View.extend({
+  template: require('./SignInPane.jade'),
+
   events: {
     'submit form': 'onSubmit',
   },
 
-  template: require('./SignInPane.jade'),
-
-  initialize() {
-    this.alertTimeoutId = null;
-    this.alertTimeout = 5000;
-  },
-
   render() {
     this.$el.html(this.template());
+
+    this.alertListPane = new AlertListPane().render();
+    this.$('.alert-wrapper').append(this.alertListPane.$el);
+
     this.$form = this.$('form');
     this.$username = this.$('.username');
     this.$password = this.$('.password');
-    this.$alert = this.$('.alert');
+
     return this;
   },
 
@@ -40,18 +39,9 @@ export default Backbone.View.extend({
     });
   },
 
-  showError(text, onCleanUpCb) {
+  showError(text) {
     this.resetForm();
-    this.$alert.append($('<p/>').text(text)).show();
-    if (this.alertTimeoutId) {
-      clearTimeout(this.alertTimeoutId);
-    }
-    this.alertTimeoutId = setTimeout(() => {
-      this.$alert.empty().hide();
-      if (onCleanUpCb) {
-        onCleanUpCb();
-      }
-    }, this.alertTimeout);
+    this.alertListPane.addAlert({text});
   },
 
   resetForm() {
@@ -60,6 +50,7 @@ export default Backbone.View.extend({
   },
 
   remove() {
+    this.alertListPane.remove();
     Backbone.View.prototype.remove.call(this);
   },
 });

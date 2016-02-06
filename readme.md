@@ -66,6 +66,9 @@ linting use the `nofail` environment variable like this:
 * Add Selenium tests.
 * Add screenshot tests.
 * Add the Vagrantfile.
+* Use a salted password hash.
+* Remember the user session.
+* Remember the user when reloading a page.
 
 ## License
 
