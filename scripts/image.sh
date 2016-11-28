@@ -29,7 +29,7 @@ subcommand_trim() {
 }
 
 subcommand_start() {
-    # The number of running images is fix to 2.
+    # The number of running images is fixed to 2.
 
     stop_image 0
     sleep "$sleep_between_restarts"
@@ -57,6 +57,16 @@ subcommand_postgres() {
     PGPASSWORD=password psql -h localhost -p 5432 -U postgres -c '
         create database db
     '
+}
+
+subcommand_mongo() {
+    local args=(
+        -d
+        -p 27017:27017
+        -v /postgres-data:/var/lib/postgresql/data
+        -v /mongo-data:/data/db
+    )
+    docker run --name "$image_prefix"mongo -d mongo:3.2
 }
 
 start_image() {
