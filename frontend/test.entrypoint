@@ -1,3 +1,0 @@
-require('js-polyfills/es5');
-var testsContext = require.context('.', true, /\.js$/);
-testsContext.keys().forEach(testsContext);

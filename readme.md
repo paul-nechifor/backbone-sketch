@@ -1,3 +1,7 @@
+# This repository has been moved to [gitlab.com/paul-nechifor/backbone-sketch](http://gitlab.com/paul-nechifor/backbone-sketch).
+
+Old readme:
+
 # Backbone Sketch
 
 This is an example frontend JavaScript project that integrates the following:
